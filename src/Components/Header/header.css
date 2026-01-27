@@ -1,5 +1,5 @@
 .header {
-  padding-block: 2rem;
+  padding-block: clamp(2rem, 2.5vw + 1rem, 3rem);
 
   display: flex;
   justify-content: space-between;
