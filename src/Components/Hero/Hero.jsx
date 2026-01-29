@@ -9,10 +9,13 @@ export default function Hero() {
 
       <div className="search-container">
         <div className="search-box">
-          <img src={Search} />
+          <span className="search-icon">
+            <img src={Search} />
+          </span>
           <input
+            role="search"
             className="hero__input"
-            type="search"
+            type="text"
             name="search"
             id="search"
             placeholder="Search for a place..."

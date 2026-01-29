@@ -24,6 +24,13 @@
   background-color: var(--clr-700);
   padding: 0.5rem 0.7rem;
   border-radius: 6px;
+
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.units-button:focus {
+  border-color: var(--clr-100);
 }
 
 .dropdown-icon img {
@@ -51,6 +58,13 @@
   border-radius: 8px;
   background: var(--clr-700);
   font-size: var(--fs-400);
+
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.menu-preset:focus {
+  border-color: var(--clr-100);
 }
 
 .menu-item {
