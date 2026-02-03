@@ -31,6 +31,7 @@
   --fs-800: 2rem; /* 32px */
   --fs-900: 3rem; /* 48px */
   --fs-large: 3.5rem; /* 56px */
+  --fs-xl: 4rem;
 
   /* ===== Container Sizes ===== */
   --container-max: 72rem; /* 1152px */

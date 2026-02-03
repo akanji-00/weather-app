@@ -86,3 +86,127 @@
     flex: 1.5;
   }
 }
+
+/* ============= HERO SECTION ============== */
+
+.hero__section {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "weather-box-tab"
+    "weather-tiles-tab"
+    "daily-forecast-tab"
+    "hourly-forcast-tab";
+
+  margin-bottom: clamp(1rem, 2vw + 1rem, 2rem);
+}
+
+.weather__box,
+.weather__tiles,
+.weather__daily--forecast,
+.weather__hourly--forecast {
+  border-radius: 15px;
+  padding: clamp(1rem, 2vw + 1rem, 2rem);
+}
+
+.weather__box {
+  grid-area: weather-box-tab;
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  background-image: url(../../assets/images/bg-today-small.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.weather__box--text {
+  line-height: 1.5;
+  text-align: center;
+}
+
+.text-country {
+  font-size: var(--fs-800);
+  font-weight: 700;
+}
+
+.text-date {
+  color: var(--clr-200);
+}
+
+.weather__box--detail {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.weather__box--detail img {
+  width: 7rem;
+}
+
+.text-temp {
+  font-size: 7rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.weather__tiles {
+  grid-area: weather-tiles-tab;
+  margin-inline: auto;
+  background: yellow;
+
+  /* margin-bottom: clamp(1rem, 2vw + 1rem, 2rem); */
+
+  width: 100%;
+}
+
+.weather__daily--forecast {
+  grid-area: daily-forecast-tab;
+  margin-inline: auto;
+  background: green;
+
+  /* margin-bottom: clamp(1rem, 2vw + 1rem, 2rem); */
+
+  width: 100%;
+}
+
+.weather__hourly--forecast {
+  grid-area: hourly-forcast-tab;
+  margin-inline: auto;
+  background: blue;
+
+  /* margin-bottom: clamp(1rem, 2vw + 1rem, 3rem); */
+
+  width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .hero__section {
+    /* width: 100%; */
+    grid-template-areas:
+      "weather-box-tab hourly-forcast-tab"
+      "weather-tiles-tab hourly-forcast-tab"
+      "daily-forecast-tab hourly-forcast-tab";
+  }
+
+  .weather__box {
+    background-image: url(../../assets/images/bg-today-large.svg);
+
+    flex-direction: row;
+    justify-content: space-between;
+    padding-block: 5rem;
+  }
+
+  .weather__box--text {
+    line-height: 1.5;
+    text-align: left;
+  }
+}
