@@ -89,12 +89,12 @@
 
 /* ============= HERO SECTION ============== */
 
-.hero__section {
+.main__section {
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: 1fr;
   grid-template-areas:
-    "weather-box-tab"
+    "hero-section"
     "weather-tiles-tab"
     "daily-forecast-tab"
     "hourly-forcast-tab";
@@ -102,7 +102,7 @@
   margin-bottom: clamp(1rem, 2vw + 1rem, 2rem);
 }
 
-.weather__box,
+.hero__section,
 .weather__tiles,
 .weather__daily--forecast,
 .weather__hourly--forecast {
@@ -110,15 +110,9 @@
   padding: clamp(1rem, 2vw + 1rem, 2rem);
 }
 
-.weather__box {
-  grid-area: weather-box-tab;
+.hero__section {
+  grid-area: hero-section;
   margin-inline: auto;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
 
   width: 100%;
 
@@ -126,6 +120,16 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.weather__box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
 }
 
 .weather__box--text {
@@ -146,6 +150,7 @@
   display: flex;
   gap: 2rem;
   align-items: center;
+  justify-content: center;
 }
 
 .weather__box--detail img {
@@ -189,20 +194,23 @@
 }
 
 @media (min-width: 48rem) {
-  .hero__section {
+  .main__section {
     /* width: 100%; */
     grid-template-areas:
-      "weather-box-tab hourly-forcast-tab"
+      "hero-section hourly-forcast-tab"
       "weather-tiles-tab hourly-forcast-tab"
       "daily-forecast-tab hourly-forcast-tab";
   }
 
-  .weather__box {
+  .hero__section {
     background-image: url(../../assets/images/bg-today-large.svg);
+  }
 
+  .weather__box {
     flex-direction: row;
     justify-content: space-between;
-    padding-block: 5rem;
+    padding-block: 3rem;
+    width: 100%;
   }
 
   .weather__box--text {

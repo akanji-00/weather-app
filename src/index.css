@@ -34,7 +34,7 @@
   --fs-xl: 4rem;
 
   /* ===== Container Sizes ===== */
-  --container-max: 72rem; /* 1152px */
+  --container-max: 64rem; /* 1024px */
   --container-padding: clamp(1rem, 4vw, 2rem); /* 16px - 32px */
 }
 
