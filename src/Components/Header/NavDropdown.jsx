@@ -6,30 +6,40 @@ import MenuSection from "./MenuSection";
 import Units from "../../assets/images/icon-units.svg";
 import Dropdown from "../../assets/images/icon-dropdown.svg";
 
-const METRIC_UNITS = {
-  temperature: "celsius",
-  windSpeed: "kmh",
-  precipitation: "mm",
-};
+import {
+  TEMP_OPTIONS,
+  WIND_OPTIONS,
+  PRECIP_OPTIONS,
+} from "../../config/unitPresets";
 
-const IMPERIAL_UNITS = {
-  temperature: "fahrenheit",
-  windSpeed: "mph",
-  precipitation: "in",
-};
+// const METRIC_UNITS = {
+//   temperature: "celsius",
+//   windSpeed: "kmh",
+//   precipitation: "mm",
+// };
 
-export default function NavDropdown() {
+// const IMPERIAL_UNITS = {
+//   temperature: "fahrenheit",
+//   windSpeed: "mph",
+//   precipitation: "in",
+// };
+
+export default function NavDropdown({ unitSystem, setUnitSystem }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [units, setUnits] = useState(METRIC_UNITS);
+  // const [units, setUnits] = useState(METRIC_UNITS);
 
   const buttonRef = useRef(null);
   const menuRef = useRef(null);
 
-  const isImperial =
-    units.temperature === IMPERIAL_UNITS.temperature &&
-    units.windSpeed === IMPERIAL_UNITS.windSpeed &&
-    units.precipitation === IMPERIAL_UNITS.precipitation;
+  const switchUnitsPreset = () => {
+    setUnitSystem((prev) => (prev === "metric" ? "imperial" : "metric"));
+  };
+
+  // const isImperial =
+  //   units.temperature === IMPERIAL_UNITS.temperature &&
+  //   units.windSpeed === IMPERIAL_UNITS.windSpeed &&
+  //   units.precipitation === IMPERIAL_UNITS.precipitation;
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -50,13 +60,9 @@ export default function NavDropdown() {
     setIsOpen((prev) => !prev);
   }
 
-  function switchUnitsPreset() {
-    setUnits(isImperial ? METRIC_UNITS : IMPERIAL_UNITS);
-  }
-
-  function updateUnit(category, value) {
-    setUnits((prev) => ({ ...prev, [category]: value }));
-  }
+  // function updateUnit(category, value) {
+  //   setUnits((prev) => ({ ...prev, [category]: value }));
+  // }
   return (
     <div className="units-dropdown">
       <button
@@ -83,42 +89,33 @@ export default function NavDropdown() {
             role="menuitem"
             onClick={switchUnitsPreset}
           >
-            {isImperial ? "Switch to Metric" : "Switch to Imperial"}
+            Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
           </button>
 
           {/* ===== TEMPERATURE ===== */}
           <MenuSection
             title="Temperature"
-            selected={units.temperature}
-            options={[
-              { label: "Celsius (°C)", value: "celsius" },
-              { label: "Fahrenheit (°F)", value: "fahrenheit" },
-            ]}
-            onSelect={(value) => updateUnit("temperature", value)}
+            selected={unitSystem}
+            options={TEMP_OPTIONS}
+            onSelect={setUnitSystem}
           />
           <hr className="menu-divider" />
 
           {/* ===== WIND SPEED ===== */}
           <MenuSection
             title="Wind Speed"
-            selected={units.windSpeed}
-            options={[
-              { label: "km/h", value: "kmh" },
-              { label: "mph", value: "mph" },
-            ]}
-            onSelect={(value) => updateUnit("windSpeed", value)}
+            selected={unitSystem}
+            options={WIND_OPTIONS}
+            onSelect={setUnitSystem}
           />
           <hr className="menu-divider" />
 
           {/* ===== PRECIPITATION ===== */}
           <MenuSection
             title="Precipitation"
-            selected={units.precipitation}
-            options={[
-              { label: "mm", value: "mm" },
-              { label: "in", value: "in" },
-            ]}
-            onSelect={(value) => updateUnit("precipitation", value)}
+            selected={unitSystem}
+            options={PRECIP_OPTIONS}
+            onSelect={setUnitSystem}
           />
         </div>
       )}

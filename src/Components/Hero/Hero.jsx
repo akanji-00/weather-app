@@ -1,31 +1,13 @@
 import "./hero.css";
+import Search from "./Search";
 import MainSection from "./MainSection";
-import Search from "../../assets/images/icon-search.svg";
 
-export default function Hero() {
+export default function Hero({ searchWeather, loading, error }) {
   return (
     <main className="hero">
       <h1 className="hero__title">How's the sky looking today?</h1>
 
-      <div className="search-container">
-        <div className="search-box">
-          <span className="search-icon">
-            <img src={Search} />
-          </span>
-          <input
-            role="search"
-            className="hero__input"
-            type="text"
-            name="search"
-            id="search"
-            placeholder="Search for a place..."
-          />
-        </div>
-        <button className="hero__search--btn" type="submit">
-          Search
-        </button>
-      </div>
-
+      <Search searchWeather={searchWeather} loading={loading} error={error} />
       <MainSection />
     </main>
   );
