@@ -25,28 +25,33 @@ export function useWeather() {
 
       const data = await getWeather({
         latitude: location.latitude,
-        location: location.longitude,
+        longitude: location.longitude,
         unitSystem,
       });
 
       console.log("Weather data:", data);
 
-      setCity(location.name);
+      // setCity(location.name);
       // setCurrent(data.current);
       // setHourly(data.hourly);
       // setDaily(data.daily);
+
+      if (!data.current_weather) {
+        console.error("current_weather missing:", data);
+        return;
+      }
 
       //CURRENT
       setCurrent({
         temp: Math.round(data.current_weather.temperature),
         wind: data.current_weather.windspeed,
         precipitation: data.current_weather.precipitaion,
-        icon: getWeatherIcon(data.hourly.weathercode[i]),
+        icon: getWeatherIcon(data.current_weather.weathercode),
         name: location.name,
         country: location.country,
       });
 
-      //HOURLY
+      //HOURLY;
       setHourly(
         data.hourly.time.slice(0, 8).map((time, i) => ({
           time: formatHour(time),

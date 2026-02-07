@@ -10,6 +10,7 @@ export default function Search({ searchWeather, loading, error }) {
     if (!input.trim()) return;
 
     searchWeather(input);
+    setInput("");
   };
 
   return (

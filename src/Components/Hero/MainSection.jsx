@@ -9,18 +9,37 @@ import RainIcon from "../../assets/images/icon-rain.webp";
 import StormIcon from "../../assets/images/icon-storm.webp";
 import SnowIcon from "../../assets/images/icon-snow.webp";
 
-export default function MainSection() {
+export default function MainSection({ current, loading }) {
+  if (loading) return <p>Loading...</p>;
+  // if (error) return <p>{error}</p>;
+  if (!current) return null;
+
+  // const date = new Date(current.time).toLocaleDateString(undefined, {
+  //   weekday: "long",
+  //   month: "long",
+  //   day: "numeric",
+  //   year: "numeric",
+  // });
   return (
     <main className="main__section">
       <section className="hero__section">
         <div className="weather__box">
           <div className="weather__box--text">
-            <p className="text-country">Berlin, Germany</p>
-            <p className="text-date">Tuesday, Aug 5, 2025</p>
+            <p className="text-country">
+              {current.name}, {current.country}
+            </p>
+            <p className="text-date">
+              {new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </p>
           </div>
           <div className="weather__box--detail">
-            <img src={SunIcon} />
-            <p className="text-temp">20</p>
+            <img src={current.icon} />
+            <p className="text-temp">{current.temp}</p>
           </div>
         </div>
       </section>
@@ -29,7 +48,7 @@ export default function MainSection() {
         <div className="card-grid">
           <div className="card">
             <p className="temp-state">Feels like</p>
-            <p className="temp-number">64</p>
+            <p className="temp-number">{current.temp}</p>
           </div>
           <div className="card">
             <p className="temp-state">Humidity</p>
