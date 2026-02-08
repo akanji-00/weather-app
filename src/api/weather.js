@@ -3,14 +3,14 @@ export async function getWeather({ latitude, longitude, unitSystem }) {
   if (latitude === undefined || longitude === undefined) {
     throw new Error("Latitude and longitude are required to fetch weather.");
   }
-  // const tempUnit = unitSystem === "imperial" ? "fahrenheit" : "celsius";
-  // const windUnit = unitSystem === "imperial" ? "mph" : "kmh";
-  // const precipitationUnit = unitSystem === "imperial" ? "inch" : "mm";
+  const tempUnit = unitSystem === "imperial" ? "fahrenheit" : "celsius";
+  const windUnit = unitSystem === "imperial" ? "mph" : "kmh";
+  const precipUnit = unitSystem === "imperial" ? "inch" : "mm";
 
   // if (!latitude || !longitude) {
   //   throw new Error("Missing coordinates");
   // }
-  const isImperial = unitSystem === "imperial";
+  // const isImperial = unitSystem === "imperial";
 
   // const units =
   //   unitSystem === "imperial"
@@ -39,9 +39,10 @@ export async function getWeather({ latitude, longitude, unitSystem }) {
     &current_weather=true
     &hourly=temperature_2m,precipitation,relativehumidity_2m,weathercode,windspeed_10m
     &daily=weathercode,temperature_2m_max,temperature_2m_min
-    &temperature_unit=${isImperial ? "fahrenheit" : "celsius"}
-    &windspeed_unit=${isImperial ? "mph" : "kmh"}
-    &precipitation_unit=${isImperial ? "inch" : "mm"}
+    &humidity=relativehumidity_2m
+    &temperature_unit=${tempUnit}
+    &windspeed_unit=${windUnit}
+    &precipitation_unit=${precipUnit}
     &timezone=auto
   `.replace(/\s/g, "");
 

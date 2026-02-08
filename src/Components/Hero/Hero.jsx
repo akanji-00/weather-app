@@ -8,13 +8,21 @@ export default function Hero({
   error,
   current,
   daily,
+  hourly,
+  unitSystem,
 }) {
   return (
     <main className="hero">
       <h1 className="hero__title">How's the sky looking today?</h1>
 
       <Search searchWeather={searchWeather} loading={loading} error={error} />
-      <MainSection current={current} loading={loading} daily={daily} />
+      <MainSection
+        current={current}
+        loading={loading}
+        daily={daily}
+        hourly={hourly}
+        unitSystem={unitSystem}
+      />
     </main>
   );
 }

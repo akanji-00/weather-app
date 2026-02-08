@@ -64,21 +64,21 @@ export function useWeather() {
 
       console.log("Weather data:", data);
 
-      // setCity(location.name);
-      // setCurrent(data.current);
-      // setHourly(data.hourly);
-      // setDaily(data.daily);
-
       if (!data.current_weather) {
         console.error("current_weather missing:", data);
         return;
       }
 
-      // const currentDetails = extractCurrentFromHourly(data);
+      const now = new Date();
+      const currentHourIndex = data.hourly.time.findIndex(
+        (t) => new Date(t).getHours() === now.getHours(),
+      );
 
       //CURRENT
       setCurrent({
         temp: Math.round(data.current_weather.temperature),
+        humidity: data.hourly.relativehumidity_2m[currentHourIndex],
+        precipitation: data.hourly.precipitation[currentHourIndex],
         wind: data.current_weather.windspeed,
         // currentDetails,
         icon: getWeatherIcon(data.current_weather.weathercode),
@@ -86,20 +86,15 @@ export function useWeather() {
         country: location.country,
       });
 
-      // const currentHourIndex = data.hourly.time.indexOf(
-      //   data.current_weather.time,
-      // );
-      // setCurrentDetails({
-      //   humidity: data.hourly.relativehumidity_2m[currentHourIndex],
-      //   precipitation: data.hourly.precipitation[currentHourIndex],
-      // });
-
       //HOURLY;
       setHourly(
         data.hourly.time.slice(0, 8).map((time, i) => ({
           time: formatHour(time),
           temp: Math.round(data.hourly.temperature_2m[i]),
+          humidity: data.hourly.relativehumidity_2m[i],
+          precipitation: data.hourly.precipitation[i],
           icon: getWeatherIcon(data.hourly.weathercode[i]),
+          dayIndex: Math.floor(i / 24),
         })),
       );
 
@@ -120,17 +115,9 @@ export function useWeather() {
     }
   };
 
-  // const displayCurrent = current && {
-  //   temperature: convertTemp(current.temperature),
-  //   windspeed: convertWind(current.windspeed),
-  //   weathercode: current.weathercode,
-  // };
-
   return {
     city,
     setCity,
-    // displayCurrent,
-    // displayDetails,
     unitSystem,
     setUnitSystem,
     current,
