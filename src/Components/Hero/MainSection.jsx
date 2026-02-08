@@ -1,3 +1,6 @@
+import HeroTab from "./HeroTab";
+import WeatherTiles from "./WeatherTiles";
+import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 
 import SunIcon from "../../assets/images/icon-sunny.webp";
@@ -9,11 +12,8 @@ import RainIcon from "../../assets/images/icon-rain.webp";
 import StormIcon from "../../assets/images/icon-storm.webp";
 import SnowIcon from "../../assets/images/icon-snow.webp";
 
-export default function MainSection({ current, loading }) {
-  if (loading) return <p>Loading...</p>;
-  // if (error) return <p>{error}</p>;
+export default function MainSection({ current, loading, daily }) {
   if (!current) return null;
-
   // const date = new Date(current.time).toLocaleDateString(undefined, {
   //   weekday: "long",
   //   month: "long",
@@ -22,109 +22,10 @@ export default function MainSection({ current, loading }) {
   // });
   return (
     <main className="main__section">
-      <section className="hero__section">
-        <div className="weather__box">
-          <div className="weather__box--text">
-            <p className="text-country">
-              {current.name}, {current.country}
-            </p>
-            <p className="text-date">
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
-          </div>
-          <div className="weather__box--detail">
-            <img src={current.icon} />
-            <p className="text-temp">{current.temp}</p>
-          </div>
-        </div>
-      </section>
+      <HeroTab loading={loading} current={current} />
 
-      <section className="weather__tiles">
-        <div className="card-grid">
-          <div className="card">
-            <p className="temp-state">Feels like</p>
-            <p className="temp-number">{current.temp}</p>
-          </div>
-          <div className="card">
-            <p className="temp-state">Humidity</p>
-            <p className="temp-number">64</p>
-          </div>
-          <div className="card">
-            <p className="temp-state">Wind</p>
-            <p className="temp-number">64</p>
-          </div>
-          <div className="card">
-            <p className="temp-state">Precipitation</p>
-            <p className="temp-number">64</p>
-          </div>
-        </div>
-      </section>
-      <section className="weather__daily--forecast">
-        <h2 className="temp-title">Daily forecast</h2>
-        <div className="card-grid">
-          <div className="card">
-            <p className="temp-day">Tue</p>
-            <img src={DrizzleIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-          <div className="card">
-            <p className="temp-day">Wed</p>
-            <img src={RainIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-          <div className="card">
-            <p className="temp-day">Thur</p>
-            <img src={StormIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-          <div className="card">
-            <p className="temp-day">Fri</p>
-            <img src={FogIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-          <div className="card">
-            <p className="temp-day">Sat</p>
-            <img src={OvercastIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-          <div className="card">
-            <p className="temp-day">Sun</p>
-            <img src={PartCloudIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-          <div className="card">
-            <p className="temp-day">Mon</p>
-            <img src={SunIcon} className="temp-img" />
-            <div className="temp-numbers">
-              <p className="temp-number">64</p>
-              <p className="temp-number">64</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WeatherTiles current={current} />
+      <DailyForecast daily={daily} />
 
       <section className="weather__hourly--forecast">
         <HourlyForecast />

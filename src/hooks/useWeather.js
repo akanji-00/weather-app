@@ -8,10 +8,43 @@ export function useWeather() {
   const [city, setCity] = useState("");
   const [unitSystem, setUnitSystem] = useState("metric");
   const [current, setCurrent] = useState(null);
+  // const [currentDetails, setCurrentDetails] = useState(null);
   const [hourly, setHourly] = useState([]);
   const [daily, setDaily] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // const isImperial = unitSystem === "imperial";
+
+  // const convertTemp = (c) => {
+  //   isImperial ? (c * 9) / 5 + 32 : c;
+  // };
+
+  // const convertWind = (kmh) => {
+  //   isImperial ? kmh / 1.609 : kmh;
+  // };
+
+  // const convertPrecip = (mm) => {
+  //   isImperial ? mm / 25.4 : mm;
+  // };
+
+  // const displayDetails = currentDetails && {
+  //   humidity: currentDetails.humidity,
+  //   precipitation: convertPrecip(currentDetails.precipitation),
+  // };
+
+  // function extractCurrentFromHourly(data) {
+  //   const now = data.current_weather.time;
+
+  //   const index = data.hourly.time.indexOf(now);
+
+  //   if (index === -1) return null;
+
+  //   return {
+  //     humidity: data.hourly.relativehumidity_2m[index],
+  //     precipitation: data.hourly.precipitation[index],
+  //   };
+  // }
 
   const searchWeather = async (searchCity) => {
     try {
@@ -41,15 +74,25 @@ export function useWeather() {
         return;
       }
 
+      // const currentDetails = extractCurrentFromHourly(data);
+
       //CURRENT
       setCurrent({
         temp: Math.round(data.current_weather.temperature),
         wind: data.current_weather.windspeed,
-        precipitation: data.current_weather.precipitaion,
+        // currentDetails,
         icon: getWeatherIcon(data.current_weather.weathercode),
         name: location.name,
         country: location.country,
       });
+
+      // const currentHourIndex = data.hourly.time.indexOf(
+      //   data.current_weather.time,
+      // );
+      // setCurrentDetails({
+      //   humidity: data.hourly.relativehumidity_2m[currentHourIndex],
+      //   precipitation: data.hourly.precipitation[currentHourIndex],
+      // });
 
       //HOURLY;
       setHourly(
@@ -64,8 +107,8 @@ export function useWeather() {
       setDaily(
         data.daily.time.map((date, i) => ({
           day: formatDay(date),
-          max: Math.round(data.daily.temperature_2m_max[i]),
           min: Math.round(data.daily.temperature_2m_min[i]),
+          max: Math.round(data.daily.temperature_2m_max[i]),
           icon: getWeatherIcon(data.daily.weathercode[i]),
         })),
       );
@@ -77,12 +120,21 @@ export function useWeather() {
     }
   };
 
+  // const displayCurrent = current && {
+  //   temperature: convertTemp(current.temperature),
+  //   windspeed: convertWind(current.windspeed),
+  //   weathercode: current.weathercode,
+  // };
+
   return {
     city,
     setCity,
+    // displayCurrent,
+    // displayDetails,
     unitSystem,
     setUnitSystem,
     current,
+    // currentDetails,
     hourly,
     daily,
     loading,

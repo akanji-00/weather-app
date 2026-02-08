@@ -37,8 +37,8 @@ export async function getWeather({ latitude, longitude, unitSystem }) {
     ?latitude=${latitude}
     &longitude=${longitude}
     &current_weather=true
-    &hourly=temperature_2m,precipitation,weathercode,windspeed_10m
-    &daily=temperature_2m_max,temperature_2m_min,weathercode
+    &hourly=temperature_2m,precipitation,relativehumidity_2m,weathercode,windspeed_10m
+    &daily=weathercode,temperature_2m_max,temperature_2m_min
     &temperature_unit=${isImperial ? "fahrenheit" : "celsius"}
     &windspeed_unit=${isImperial ? "mph" : "kmh"}
     &precipitation_unit=${isImperial ? "inch" : "mm"}
