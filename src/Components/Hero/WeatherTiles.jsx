@@ -8,13 +8,13 @@ export default function WeatherTiles({ current, unitSystem }) {
 
   const displayPrecip =
     unitSystem === "imperial"
-      ? (current.precipitation / 25.4).toFixed(2)
+      ? (current.precipitation * 0.0393701).toFixed(0)
       : current.precipitation;
 
   const displayWind =
     unitSystem === "imperial"
-      ? (current.wind * 0.621371).toFixed(2)
-      : (current.wind * 1.60934).toFixed(2);
+      ? (current.wind * 0.621371).toFixed(0)
+      : current.wind.toFixed(0);
   return (
     <section className="weather__tiles">
       <div className="card-grid">
@@ -28,13 +28,16 @@ export default function WeatherTiles({ current, unitSystem }) {
         </div>
         <div className="card">
           <p className="temp-state">Wind</p>
-          <p className="temp-number">{displayWind}</p>
+          <p className="temp-number">
+            {displayWind}
+            {unitSystem === "imperial" ? " mph" : " km/h"}
+          </p>
         </div>
         <div className="card">
           <p className="temp-state">Precipitation</p>
           <p className="temp-number">
             {displayPrecip}
-            {unitSystem === "imperial" ? " inch" : " mm"}
+            {unitSystem === "imperial" ? " in" : " mm"}
           </p>
         </div>
       </div>

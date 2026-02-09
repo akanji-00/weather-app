@@ -4,6 +4,8 @@ import { getWeather } from "../api/weather";
 import { formatHour, formatDay } from "../utility/weatherUtility";
 import { getWeatherIcon } from "../utility/weatherIcons";
 
+import { rotateFromToday } from "../utility/rotateDays";
+
 export function useWeather() {
   const [city, setCity] = useState("");
   const [unitSystem, setUnitSystem] = useState("metric");
@@ -74,6 +76,13 @@ export function useWeather() {
         (t) => new Date(t).getHours() === now.getHours(),
       );
 
+      // DAILY DATA
+      // const rotatedDaily = rotateFromToday({
+      //   time: data.daily.time,
+      //   max: data.daily.temperature_2m_max,
+      //   min: data.daily.temperature_2m_min,
+      // });
+
       //CURRENT
       setCurrent({
         temp: Math.round(data.current_weather.temperature),
@@ -86,15 +95,22 @@ export function useWeather() {
         country: location.country,
       });
 
+      const nowHour = new Date();
+      const currentHourISO = nowHour.toISOString().slice(0, 13);
+
+      const startIndex = data.hourly.time.findIndex((time) =>
+        time.startsWith(currentHourISO),
+      );
+
       //HOURLY;
       setHourly(
-        data.hourly.time.slice(0, 8).map((time, i) => ({
+        data.hourly.time.slice(startIndex, startIndex + 8).map((time, i) => ({
           time: formatHour(time),
-          temp: Math.round(data.hourly.temperature_2m[i]),
-          humidity: data.hourly.relativehumidity_2m[i],
-          precipitation: data.hourly.precipitation[i],
-          icon: getWeatherIcon(data.hourly.weathercode[i]),
-          dayIndex: Math.floor(i / 24),
+          temp: Math.round(data.hourly.temperature_2m[startIndex + i]),
+          humidity: data.hourly.relativehumidity_2m[startIndex + i],
+          precipitation: data.hourly.precipitation[startIndex + i],
+          icon: getWeatherIcon(data.hourly.weathercode[startIndex + i]),
+          dayIndex: new Date(time).getDay(),
         })),
       );
 
@@ -102,6 +118,7 @@ export function useWeather() {
       setDaily(
         data.daily.time.map((date, i) => ({
           day: formatDay(date),
+          // rotatedDaily,
           min: Math.round(data.daily.temperature_2m_min[i]),
           max: Math.round(data.daily.temperature_2m_max[i]),
           icon: getWeatherIcon(data.daily.weathercode[i]),

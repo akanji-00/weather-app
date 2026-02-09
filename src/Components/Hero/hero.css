@@ -156,11 +156,11 @@
 }
 
 .weather__box--detail img {
-  width: 7rem;
+  width: 6rem;
 }
 
 .text-temp {
-  font-size: 7rem;
+  font-size: clamp(5rem, 6vw + 1rem, 7rem);
   font-weight: 700;
   font-style: italic;
 }

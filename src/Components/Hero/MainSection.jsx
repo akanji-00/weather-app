@@ -1,7 +1,7 @@
 import HeroTab from "./HeroTab";
 import WeatherTiles from "./WeatherTiles";
 import DailyForecast from "./DailyForecast";
-import HourlyDropdown from "./HourlyDropdown";
+
 import HourlyForecast from "./HourlyForecast";
 
 import SunIcon from "../../assets/images/icon-sunny.webp";
@@ -31,12 +31,11 @@ export default function MainSection({
     <main className="main__section">
       <HeroTab loading={loading} current={current} unitSystem={unitSystem} />
 
-      <WeatherTiles current={current} />
-      <DailyForecast daily={daily} />
+      <WeatherTiles current={current} unitSystem={unitSystem} />
+      <DailyForecast daily={daily} unitSystem={unitSystem} />
 
       <section className="weather__hourly--forecast">
-        <HourlyDropdown />
-        <HourlyForecast hourly={hourly} />
+        <HourlyForecast hourly={hourly} unitSystem={unitSystem} />
       </section>
     </main>
   );
